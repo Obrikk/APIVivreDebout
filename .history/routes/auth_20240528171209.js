@@ -28,6 +28,7 @@ router.post('/login', (req,res)=> {
                     if(!test){
                         return res.status(401).json({ message: 'wrong password'})
                     }
+
                     // le password est bon donc on vint faire une reponse avec un token
                     //jwt.sign({payload},secret,durée)
                     const token = jwt.sign({    //le payload

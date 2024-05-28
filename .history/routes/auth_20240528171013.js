@@ -12,7 +12,7 @@ router.post('/login', (req,res)=> {
     const {email, password} = req.body
 
     if(!email || !password){
-        res.status(400).json({message:'Bad email or password'})
+        res.status(400).json({message:'Bad request, not enough data'})
     }
 
     User.findOne({where: {email:email}, row:true})
@@ -28,6 +28,7 @@ router.post('/login', (req,res)=> {
                     if(!test){
                         return res.status(401).json({ message: 'wrong password'})
                     }
+
                     // le password est bon donc on vint faire une reponse avec un token
                     //jwt.sign({payload},secret,durée)
                     const token = jwt.sign({    //le payload

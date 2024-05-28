@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended: true}))
 
 //import des modules de routage
 const user_router = require('./routes/users')
-const auth_router = require('./routes/auth')
+const auth = require('./routes/auth')
 
 
 
@@ -26,7 +26,7 @@ app.get('/', (req,res) => res.send(`I'm online well done !`))
 app.get('*', (req, res) => res.status(501).send('What the hell are you doing ?!'))
 
 app.use('/users', user_router)
-app.use('/auth', auth_router)
+app.use('/login', )
 
 // Demarrer serveur avec test DB
 DB.authenticate()
