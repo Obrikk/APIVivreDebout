@@ -22,11 +22,11 @@ const auth_router = require('./routes/auth')
 
 // Mise en place du routage
 app.get('/', (req,res) => res.send(`I'm online well done !`))
-
-app.get('*', (req, res) => res.status(501).send('What the hell are you doing ?!'))
-
 app.use('/users', user_router)
 app.use('/auth', auth_router)
+app.get('*', (req, res) => res.status(501).send('What the hell are you doing ?!'))
+
+
 
 // Demarrer serveur avec test DB
 DB.authenticate()
