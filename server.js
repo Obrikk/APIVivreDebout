@@ -30,8 +30,12 @@ app.get('/', (req,res) => {
     res.json({message:'Bienvenue sur l api'})
 })
 
+app.get('/', (req,res) => res.send(`I'm online well done !`))
 app.use('/users', user_router)
 app.use('/auth', auth_router)
+app.get('*', (req, res) => res.status(501).send('What the hell are you doing ?!'))
+
+
 app.use('/cookies', cookies_router)
 app.get('*', (req, res) => res.status(501).send('What the hell are you doing ?!'))
 
