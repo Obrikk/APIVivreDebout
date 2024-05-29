@@ -31,8 +31,9 @@ router.post('/login', (req,res)=> {
                     }
                     
 
+                    res.cookie('CookieAuth', 1,{ httpOnly: true})
                     return(
-                        res.json({message: 'Vous etes connectés !'})
+                        res.json({message: 'bonjour'})
                     )
                 })
                 .catch(err => res.status(500).json({message: 'Login process failed', error:err}))

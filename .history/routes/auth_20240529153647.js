@@ -29,12 +29,20 @@ router.post('/login', (req,res)=> {
                     if(!test){
                         return res.status(401).json({ message: 'wrong password'})
                     }
-                    
+                    // le password est bon donc on vint faire une reponse avec un token
+                    //jwt.sign({payload},secret,durée)
+                    const token = jwt.sign({    //le payload
+                        id: user.id,
+                        nom: user.nom,
+                        prenom: user.prenom,    
+                        email: user.email
+                    },process.env.JWT_SECRET, {expiresIn: process.env.JWT_DURING})     //La signature
 
                     return(
-                        res.json({message: 'Vous etes connectés !'})
+                        res.cookie('CookieAuth', 1,{ httpOnly: true})
+                        res.json({message: 'bonjour'})
                     )
-                })
+                })e
                 .catch(err => res.status(500).json({message: 'Login process failed', error:err}))
         })
         .catch(err => res.status(500).json({message: 'Database error'}))

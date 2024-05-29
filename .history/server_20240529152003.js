@@ -12,7 +12,7 @@ const app = express()
 
 
 const corsOptions ={
-    origin: true,
+    origin: '*',
     credentials: true
 }
 app.use(cors(corsOptions))
@@ -22,17 +22,18 @@ app.use(express.urlencoded({extended: true}))
 //import des modules de routage
 const user_router = require('./routes/users')
 const auth_router = require('./routes/auth')
-const cookies_router = require('./routes/cookietest')
+
 
 
 // Mise en place du routage
 app.get('/', (req,res) => {
-    res.json({message:'Bienvenue sur l api'})
+    res.cookie("cookie1", 'valeurDuCookie')
+    res.json({message:'cookie défini avec succès'})
 })
 
 app.use('/users', user_router)
 app.use('/auth', auth_router)
-app.use('/cookies', cookies_router)
+
 app.get('*', (req, res) => res.status(501).send('What the hell are you doing ?!'))
 
 // Demarrer serveur avec test DB

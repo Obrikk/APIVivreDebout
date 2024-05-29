@@ -19,7 +19,7 @@ router.post('/login', (req,res)=> {
     User.findOne({where: {email:email}, raw:true})
         .then(user=>{
             if(user === null){
-                res.status(401).json({ message: 'This account does not exists'})
+                return res.status(401).json({ message: 'This account does not exists'})
             }
 
 
@@ -29,11 +29,21 @@ router.post('/login', (req,res)=> {
                     if(!test){
                         return res.status(401).json({ message: 'wrong password'})
                     }
-                    
+                    // le password est bon donc on vint faire une reponse avec un token
+                    //jwt.sign({payload},secret,durée)
+                    const token = jwt.sign({    //le payload
+                        id: user.id,
+                        nom: user.nom,
+                        prenom: user.prenom,    
+                        email: user.email
+                    },process.env.JWT_SECRET, {expiresIn: process.env.JWT_DURING})     //La signature
 
-                    return(
-                        res.json({message: 'Vous etes connectés !'})
-                    )
+                    // return res.json({access_token: token})
+                    return res.cookie('access_token', token, {
+                        httpOnly: true, // Le cookie n'est pas accessible via JavaScript
+                        secure: process.env.NODE_ENV === 'production', // Utilisé seulement en HTTPS en production
+                        sameSite: 'Strict', // CSRF protection
+                      });
                 })
                 .catch(err => res.status(500).json({message: 'Login process failed', error:err}))
         })

@@ -32,7 +32,7 @@ app.get('/', (req,res) => {
 
 app.use('/users', user_router)
 app.use('/auth', auth_router)
-app.use('/cookies', cookies_router)
+app.use('/cookies')
 app.get('*', (req, res) => res.status(501).send('What the hell are you doing ?!'))
 
 // Demarrer serveur avec test DB

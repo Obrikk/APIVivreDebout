@@ -32,7 +32,7 @@ router.post('/login', (req,res)=> {
                     
 
                     return(
-                        res.json({message: 'Vous etes connectés !'})
+                        res.json({message: 'bonjour'})
                     )
                 })
                 .catch(err => res.status(500).json({message: 'Login process failed', error:err}))

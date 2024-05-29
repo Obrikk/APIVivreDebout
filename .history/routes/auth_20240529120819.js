@@ -1,6 +1,5 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 
 const User = require('../models/user')
 
@@ -29,11 +28,16 @@ router.post('/login', (req,res)=> {
                     if(!test){
                         return res.status(401).json({ message: 'wrong password'})
                     }
-                    
+                    // le password est bon donc on vint faire une reponse avec un token
+                    //jwt.sign({payload},secret,durée)
+                    const token = jwt.sign({    //le payload
+                        id: user.id,
+                        nom: user.nom,
+                        prenom: user.prenom,    
+                        email: user.email
+                    },process.env.JWT_SECRET, {expiresIn: process.env.JWT_DURING})     //La signature
 
-                    return(
-                        res.json({message: 'Vous etes connectés !'})
-                    )
+                    return res.json({access_token: token})
                 })
                 .catch(err => res.status(500).json({message: 'Login process failed', error:err}))
         })
