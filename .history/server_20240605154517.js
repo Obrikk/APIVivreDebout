@@ -35,7 +35,7 @@ app.get('/', (req,res) => res.send(`I'm online well done !`))
 app.use('/users', user_router)
 app.use('/login', auth_router)
 app.use('/sorties', sorties_router)
-app.use('/email', email_router)
+app.use('')
 app.get('*', (req, res) => res.status(501).send('What the hell are you doing ?!'))
 
 
