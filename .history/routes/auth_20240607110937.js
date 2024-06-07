@@ -31,7 +31,7 @@ router.post('', (req,res)=> {
                         return res.status(401).json({ message: 'wrong password'})
                     }
 
-                    const token = jwt.sign({ nom:user.nom, role:user.role},process.env.JWT_SECRET, {expiresIn:100})
+                    const token = jwt.sign({ nom:user.nom, role:user.role},process.env.JWT_SECRET, {expiresIn:1})
                     
 
                     return(
