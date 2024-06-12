@@ -18,7 +18,7 @@ router.get('', (req,res)=>{
 
 
 router.put('', (req,res)=>{
-    const { nom, type, date, lieu, horaires} = req.body
+    const { nom, type, date, lieu, horaires, coutBrut, priseCharge, coutTotal} = req.body
 
     if(!nom || !type || !date || !lieu || !horaires ){
        return res.status(404).json({message: 'Missing data'})
