@@ -14,13 +14,13 @@ router.post('', (req,res)=> {
     
 
     if(!email || !password){
-        res.status(400).json({message:'Bad email or password'})
+        return res.status(400).json({message:'Bad email or password'})
     }
 
     User.findOne({where: {email:email}, raw:true})
         .then(user=>{
             if(user === null){
-                res.status(401).json({ message: 'This account does not exists'})
+                return res.status(401).json({ message: 'This account does not exists'})
             }
 
 
@@ -31,7 +31,7 @@ router.post('', (req,res)=> {
                         return res.status(401).json({ message: 'wrong password'})
                     }
 
-                    const token = jwt.sign({ nom:user.nom, role:user.role},process.env.JWT_SECRET, {expiresIn:100})
+                    const token = jwt.sign({id:user.id, nom:user.nom, role:user.role},process.env.JWT_SECRET, {expiresIn:300})
                     
 
                     return(
