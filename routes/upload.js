@@ -10,6 +10,8 @@ let router = express.Router()
 //     res.json({message:'routes des uploads'})
 // })
 
+
+// Récupérer les fichiers uploadés
 router.get('', verifyToken, (req, res)=>{
     const userId= req.userId
     const userUploadsDir = path.join(__dirname, `../uploads/${userId}`);
@@ -38,6 +40,7 @@ router.get('', verifyToken, (req, res)=>{
 
 })
 
+// Envoi des fichiers selectionnés sur le vps
 router.post('',verifyToken, upload.single('file'), (req, res) => {
     if (!req.file) {
       return res.status(400).send('No file uploaded.');
@@ -45,6 +48,7 @@ router.post('',verifyToken, upload.single('file'), (req, res) => {
     res.json({ fileName: req.file.filename, filePath: `/uploads/${req.userId}/${req.file.filename}` });
   });
 
+// Suppression des fichiers sélectionnés
   router.delete('/:fileName', verifyToken, (req, res) => {
     const userId = req.userId;
     const fileName = req.params.fileName;
@@ -64,6 +68,34 @@ router.post('',verifyToken, upload.single('file'), (req, res) => {
         res.json({ message: `Le fichier ${fileName} a été supprimé avec succès.` });
     });
 });
+
+// Téléchargement du fichier selectionné
+router.get('/:fileName', verifyToken, (req, res) => {
+    const userId = req.userId;
+    const fileName = req.params.fileName;
+    const filePath = path.join(__dirname, `../uploads/${userId}/${fileName}`);
+
+    // Vérifier si le fichier existe
+    if (!fs.existsSync(filePath)) {
+        return res.status(404).json({ message: "Le fichier spécifié n'existe pas." });
+    }
+
+    // Téléchargement du fichier
+    res.download(filePath, fileName, (err) => {
+        if (err) {
+            console.error("Erreur lors du téléchargement du fichier :", err);
+            return res.status(500).json({ message: "Erreur serveur lors du téléchargement du fichier." });
+        }
+        // Optionnel : Supprimer le fichier après le téléchargement
+        // fs.unlink(filePath, (err) => {
+        //     if (err) {
+        //         console.error("Erreur lors de la suppression du fichier :", err);
+        //     }
+        // });
+    });
+});
+
+module.exports = router;
 
 
 module.exports = router
