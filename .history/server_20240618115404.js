@@ -28,7 +28,6 @@ app.get('/', (req, res) => {
     res.json({ message: 'Bienvenue sur l api' });
 });
 
-app.use('/articles', articles_router)
 app.use('/users', user_router);
 app.use('/login', auth_router);
 app.use('/sorties', sorties_router);

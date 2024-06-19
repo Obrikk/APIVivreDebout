@@ -21,14 +21,13 @@ const auth_router = require('./routes/auth');
 const sorties_router = require('./routes/sorties');
 const email_router = require('./routes/email');
 const upload_router = require('./routes/upload.js');
-const articles_router = require('./routes/articles.js')
+const articles_router
 
 // Mise en place du routage
 app.get('/', (req, res) => {
     res.json({ message: 'Bienvenue sur l api' });
 });
 
-app.use('/articles', articles_router)
 app.use('/users', user_router);
 app.use('/login', auth_router);
 app.use('/sorties', sorties_router);
