@@ -31,11 +31,6 @@ const Sortie =sequelize.define('Sortie',{
         defaultValue: '',
         allowNull: false
     },
-    description:{
-        type:DataTypes.TEXT,
-        defaultValue: '',
-        allowNull: false
-    },
     
 }, {paranoid: true})
 

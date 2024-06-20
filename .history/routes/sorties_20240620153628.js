@@ -26,13 +26,13 @@ router.put('', (req,res)=>{
     Sortie.findOne({where:{nom:nom}, raw:true})
         .then(sortie=>{
             if(sortie !== null){
-                return res.status(409).json({message: 'Une sortie du même nom existe déjà ! '})
+                res.status(409).json({message: 'Une sortie du même nom existe déjà ! '})
             }
         })
     Sortie.findOne({where:{date:date}, raw:true})
         .then(sortie=>{
             if(sortie !== null){
-                return res.status(409).json({message: 'Une sortie à la même date existe déjà ! '})
+                res.status(409).json({message: 'Une sortie à la même date existe déjà ! '})
             }
         })
 

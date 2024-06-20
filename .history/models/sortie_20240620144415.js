@@ -31,8 +31,8 @@ const Sortie =sequelize.define('Sortie',{
         defaultValue: '',
         allowNull: false
     },
-    description:{
-        type:DataTypes.TEXT,
+    horaires:{
+        type:DataTypes.STRING(100),
         defaultValue: '',
         allowNull: false
     },

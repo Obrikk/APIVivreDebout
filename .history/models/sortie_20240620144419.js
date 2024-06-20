@@ -32,7 +32,7 @@ const Sortie =sequelize.define('Sortie',{
         allowNull: false
     },
     description:{
-        type:DataTypes.TEXT,
+        type:DataTypes.STRING(100),
         defaultValue: '',
         allowNull: false
     },
