@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const DB = require('./db.config');
-const path = require('path')
+const multer = require('./middleware/multer-config.js'); // Assurez-vous que multer-config.js est correctement configuré
 
 // Initialisation du serveur
 const app = express();
@@ -22,22 +22,18 @@ const sorties_router = require('./routes/sorties');
 const email_router = require('./routes/email');
 const upload_router = require('./routes/upload.js');
 const articles_router = require('./routes/articles.js')
-const photos_router = require('./routes/photos.js')
-
 
 // Mise en place du routage
 app.get('/', (req, res) => {
     res.json({ message: 'Bienvenue sur l api' });
 });
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/articles', articles_router)
 app.use('/users', user_router);
 app.use('/login', auth_router);
 app.use('/sorties', sorties_router);
 app.use('/email', email_router);
 app.use('/upload', upload_router);
-app.use('/photos', photos_router)
 
 // Gestion des routes non définies
 app.get('*', (req, res) => {

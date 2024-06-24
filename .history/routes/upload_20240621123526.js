@@ -1,5 +1,5 @@
 const express = require('express')
-const uploadPersonnal = require('../middleware/multer.personnal.js')
+const upload = require('../middleware/multer.personnal.js')
 const verifyToken = require('../middleware/verifyToken.js')
 const fs = require('fs');
 const path = require('path');
@@ -41,7 +41,7 @@ router.get('', verifyToken, (req, res)=>{
 })
 
 // Envoi des fichiers selectionnés sur le vps
-router.post('',verifyToken, uploadPersonnal.single('file'), (req, res) => {
+router.post('',verifyToken, upload.single('file'), (req, res) => {
     if (!req.file) {
       return res.status(400).send('No file uploaded.');
     }

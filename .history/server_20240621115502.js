@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const DB = require('./db.config');
+const multer = require('./middleware/multer-config.js'); // Assurez-vous que multer-config.js est correctement configuré
 const path = require('path')
 
 // Initialisation du serveur
