@@ -23,7 +23,7 @@ const Article =sequelize.define('Article',{
     },
     description:{
         type:DataTypes.TEXT,
-        defaultValue: '',
+        defaultValue '',
         allowNull: true
     },
     lien:{
